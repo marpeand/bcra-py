@@ -1,0 +1,123 @@
+[build-system]
+requires = ["setuptools>=82.0.1", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bcra-py"
+dynamic = ["version"]
+description = "BCRA wrapper Python package"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+keywords = ["BCRA", "Argentina", "API", "Wrapper"]
+authors = [
+    { name = "marpeand" }
+]
+
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development",
+    "Topic :: Scientific/Engineering",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+]
+
+dependencies = [
+    "httpx",
+    "pandas",
+    "openpyxl",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "coverage",
+    "mkdocs",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/marpeand/bcra-py"
+"Source" = "https://github.com/marpeand/bcra-py"
+"Documentation" = "https://github.com/marpeand/bcra-py#readme"
+"Bug Reports" = "https://github.com/marpeand/bcra-py/issues"
+
+[project.scripts]
+bcra-py = "bcrapy.cli:main"
+
+
+# ------------------------------------------------------------
+# Setuptools
+# ------------------------------------------------------------
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["bcrapy", "bcrapy.*"]
+
+
+[tool.setuptools.package-data]
+bcrapy = [
+    "*.json",
+    "*.yaml",
+]
+
+
+[tool.setuptools.dynamic]
+version = { attr = "bcrapy.__version__" }
+
+
+# ------------------------------------------------------------
+# Pytest
+# ------------------------------------------------------------
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules --durations=30 --color=yes"
+testpaths = [
+    "tests"
+]
+norecursedirs = [
+    ".git",
+    "dist",
+    "build"
+]
+
+
+# ------------------------------------------------------------
+# Ruff
+# ------------------------------------------------------------
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "UP"
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+
+# ------------------------------------------------------------
+# Codespell
+# ------------------------------------------------------------
+
+[tool.codespell]
+ignore-words-list = "crate,nd,strack,dota,ane,segway,fo,gool,winn,commend"
+skip = "*.csv,*venv*,docs/??/,docs/mkdocs_??.yml"
